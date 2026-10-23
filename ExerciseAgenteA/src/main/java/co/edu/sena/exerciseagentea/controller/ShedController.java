@@ -14,41 +14,37 @@ import java.util.List;
  */
 public class ShedController implements IShedController{
    
-    private final List<Shed> sheds = new ArrayList<>();
+private ArrayList<Shed> sheds = new ArrayList<>();
 
     @Override
-    public void register(Shed shed) throws Exception {
-        validate(shed);
-        if (find(shed.getNumber()) != null) {
-            throw new Exception("Ya existe un galpón con el número " + shed.getNumber());
-        }
+    public void register(Shed shed) {
         sheds.add(shed);
     }
 
     @Override
-    public void modify(Shed shed) throws Exception {
-        validate(shed);
-        Shed existing = find(shed.getNumber());
-        if (existing == null) {
-            throw new Exception("No existe un galpón con el número " + shed.getNumber());
+    public void modify(Shed shed) {
+        for (Shed s : sheds) {
+            if (s.getNumber() == shed.getNumber()) {
+                s.setState(shed.getState());
+            }
         }
-        existing.setState(shed.getState());
     }
 
     @Override
-    public void delete(int numberShed) throws Exception {
-        Shed existing = find(numberShed);
-        if (existing == null) {
-            throw new Exception("No existe un galpón con el número " + numberShed);
+    public void delete(int numberShed) {
+        for (int i = 0; i < sheds.size(); i++) {
+            if (sheds.get(i).getNumber() == numberShed) {
+                sheds.remove(i);
+                break;
+            }
         }
-        sheds.remove(existing);
     }
 
     @Override
     public Shed find(int numberShed) {
-        for (Shed shed : sheds) {
-            if (shed.getNumber() == numberShed) {
-                return shed;
+        for (Shed s : sheds) {
+            if (s.getNumber() == numberShed) {
+                return s;
             }
         }
         return null;
@@ -56,22 +52,10 @@ public class ShedController implements IShedController{
 
     @Override
     public List<Shed> findAll() {
-        return new ArrayList<>(sheds);
-    }
-
-    private void validate(Shed shed) throws Exception {
-        if (shed == null) {
-            throw new Exception("El galpón no puede ser nulo");
-        }
-        if (shed.getNumber() <= 0) {
-            throw new Exception("El número del galpón debe ser mayor a cero");
-        }
-        if (shed.getState() == null || shed.getState().trim().isEmpty()) {
-            throw new Exception("El estado del galpón es obligatorio");
-        }
+        return sheds;
     }
 }
 
-
- 
+   
+    
 

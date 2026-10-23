@@ -64,6 +64,8 @@ public class JFrameShed extends javax.swing.JFrame {
 
         jLabelState.setText("Estado Galpon:");
 
+        jTextFieldNumberShed.addActionListener(this::jTextFieldNumberShedActionPerformed);
+
         jButtonRegister.setText("Registrar");
         jButtonRegister.addActionListener(this::jButtonRegisterActionPerformed);
 
@@ -265,6 +267,10 @@ public class JFrameShed extends javax.swing.JFrame {
         }
     
     }//GEN-LAST:event_formMouseClicked
+
+    private void jTextFieldNumberShedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNumberShedActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldNumberShedActionPerformed
 
     /**
      * @param args the command line arguments
