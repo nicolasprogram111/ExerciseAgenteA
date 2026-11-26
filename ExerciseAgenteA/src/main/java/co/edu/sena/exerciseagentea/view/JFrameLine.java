@@ -4,36 +4,47 @@
  */
 package co.edu.sena.exerciseagentea.view;
 
+import co.edu.sena.exerciseagentea.controller.ILineController;
 import co.edu.sena.exerciseagentea.controller.LineController;
 import co.edu.sena.exerciseagentea.model.Line;
+import co.edu.sena.exerciseagentea.utils.MessageUtils;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
- * @author nicol
+ * Fecha: 29/10/2026
+ * @author afescobarv
+ * Objetivo: vista linea
  */
 public class JFrameLine extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(JFrameLine.class.getName());
-
+    private final ILineController lineController = new LineController();
     
-
-    LineController controller = new LineController();
-    DefaultTableModel model = new DefaultTableModel();
     
+    /**
+     * Creates new form JFrameShed
+     */
     public JFrameLine() {
         initComponents();
-        model.addColumn("Codigo linea");
-        model.addColumn("Nombre linea");
-        jTableRegisters.setModel(model);
-    
+        fillTable();
     }
     
-    private void showTable() {
-        model.setRowCount(0);
-        for (Line l : controller.getAll()) {
-            model.addRow(new Object[]{l.getCode(), l.getName()});
+    public void fillTable()
+    {
+        DefaultTableModel model = new DefaultTableModel();
+        jTableLines.setModel(model);
+        model.addColumn("Id");
+        model.addColumn("Nombre");
+        String[] rows = new String[2];
+        try {
+            for (Line l : lineController.findAll()) {
+                rows[0] = String.valueOf(l.getId());
+                rows[1] = l.getName();
+                model.addRow(rows);
+            }
+        } catch (Exception ex) {
+            MessageUtils.getInstance().showError(ex.getMessage());
         }
     }
 
@@ -46,153 +57,214 @@ public class JFrameLine extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabelName = new javax.swing.JLabel();
-        jTextFieldNameLine = new javax.swing.JTextField();
-        jButtonRegister = new javax.swing.JButton();
-        jButtonModify = new javax.swing.JButton();
+        jLabelTitle = new javax.swing.JLabel();
+        jLabelId = new javax.swing.JLabel();
+        jTextFieldId = new javax.swing.JTextField();
+        jLabelStatus = new javax.swing.JLabel();
+        jButtonInsert = new javax.swing.JButton();
+        jButtonUpdate = new javax.swing.JButton();
         jButtonDelete = new javax.swing.JButton();
         jButtonClean = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTableRegisters = new javax.swing.JTable();
+        jTableLines = new javax.swing.JTable();
+        jTextFieldName = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Líneas");
 
-        jLabel1.setText("GESTION INFORMACION LINEA");
+        jLabelTitle.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabelTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelTitle.setText("Línea");
 
-        jLabelName.setText("Nombre Liena:");
+        jLabelId.setText("Id:");
 
-        jTextFieldNameLine.addActionListener(this::jTextFieldNameLineActionPerformed);
+        jTextFieldId.setEditable(false);
 
-        jButtonRegister.setText("Registrar");
-        jButtonRegister.addActionListener(this::jButtonRegisterActionPerformed);
+        jLabelStatus.setText("Nombre:");
 
-        jButtonModify.setText("Modificar");
-        jButtonModify.addActionListener(this::jButtonModifyActionPerformed);
+        jButtonInsert.setBackground(new java.awt.Color(255, 153, 51));
+        jButtonInsert.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButtonInsert.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonInsert.setText("Crear");
+        jButtonInsert.addActionListener(this::jButtonInsertActionPerformed);
 
+        jButtonUpdate.setBackground(new java.awt.Color(255, 153, 51));
+        jButtonUpdate.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButtonUpdate.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonUpdate.setText("Modificar");
+        jButtonUpdate.setEnabled(false);
+        jButtonUpdate.addActionListener(this::jButtonUpdateActionPerformed);
+
+        jButtonDelete.setBackground(new java.awt.Color(255, 153, 51));
+        jButtonDelete.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButtonDelete.setForeground(new java.awt.Color(255, 255, 255));
         jButtonDelete.setText("Eliminar");
+        jButtonDelete.setEnabled(false);
         jButtonDelete.addActionListener(this::jButtonDeleteActionPerformed);
 
+        jButtonClean.setBackground(new java.awt.Color(255, 153, 51));
+        jButtonClean.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButtonClean.setForeground(new java.awt.Color(255, 255, 255));
         jButtonClean.setText("Limpiar");
         jButtonClean.addActionListener(this::jButtonCleanActionPerformed);
 
-        jTableRegisters.setModel(new javax.swing.table.DefaultTableModel(
+        jTableLines.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
-                "Codigo linea", "Nombre linea"
+
             }
         ));
-        jTableRegisters.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTableLines.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTableRegistersMouseClicked(evt);
+                jTableLinesMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTableRegisters);
+        jScrollPane1.setViewportView(jTableLines);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(150, 150, 150))
             .addGroup(layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButtonRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonModify, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonClean, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap()
+                        .addComponent(jLabelTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabelName, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextFieldNameLine))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap(45, Short.MAX_VALUE))
+                        .addGap(17, 17, 17)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButtonInsert)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButtonUpdate)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButtonDelete)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButtonClean))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabelId)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextFieldId, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabelStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addGap(0, 17, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(jLabel1)
+                .addContainerGap()
+                .addComponent(jLabelTitle)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelName)
-                    .addComponent(jTextFieldNameLine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(jLabelId)
+                    .addComponent(jTextFieldId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelStatus)
+                    .addComponent(jTextFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonRegister)
-                    .addComponent(jButtonModify)
+                    .addComponent(jButtonInsert)
+                    .addComponent(jButtonUpdate)
                     .addComponent(jButtonDelete)
                     .addComponent(jButtonClean))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(157, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextFieldNameLineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNameLineActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldNameLineActionPerformed
-
-    private void jButtonRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegisterActionPerformed
-
-        String name = jTextFieldNameLine.getText();
-        if (name.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Escriba un nombre");
-            return;
-        }
-        controller.register(name);
-        showTable();
-        jTextFieldNameLine.setText("");
-    
-    }//GEN-LAST:event_jButtonRegisterActionPerformed
-
-    private void jButtonModifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModifyActionPerformed
-        int row = jTableRegisters.getSelectedRow();
-        if (row == -1) {
-            JOptionPane.showMessageDialog(this, "Seleccione una fila");
-            return;
-        }
-        int code = (int) model.getValueAt(row, 0);
-        controller.modify(code, jTextFieldNameLine.getText());
-        showTable();
-        jTextFieldNameLine.setText("");
-    }//GEN-LAST:event_jButtonModifyActionPerformed
-
-    private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
-        int row = jTableRegisters.getSelectedRow();
-        if (row == -1) {
-            JOptionPane.showMessageDialog(this, "Seleccione una fila");
-            return;
-        }
-        int code = (int) model.getValueAt(row, 0);
-        controller.delete(code);
-        showTable();
-        jTextFieldNameLine.setText("");
-    }//GEN-LAST:event_jButtonDeleteActionPerformed
-
     private void jButtonCleanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCleanActionPerformed
-        jTextFieldNameLine.setText("");
+        clear();
     }//GEN-LAST:event_jButtonCleanActionPerformed
 
-    private void jTableRegistersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableRegistersMouseClicked
-        int row = jTableRegisters.getSelectedRow();
-        jTextFieldNameLine.setText(model.getValueAt(row, 1).toString());
-    }//GEN-LAST:event_jTableRegistersMouseClicked
+    private void jButtonInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInsertActionPerformed
+        try {
+            Line line = new Line();            
+            line.setName(jTextFieldName.getText());
+            
+            lineController.insert(line);
+            MessageUtils.getInstance().showInfo("El registro fue creado exitosamente");
+            clear();
+            fillTable();            
+        }catch (NumberFormatException ex) {
+            MessageUtils.getInstance().showError("El Id debe contener solo números");
+        } 
+        catch (Exception ex) {
+            MessageUtils.getInstance().showError(ex.getMessage());
+        }
+    }//GEN-LAST:event_jButtonInsertActionPerformed
 
+    private void jButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateActionPerformed
+        try {
+            Line line = new Line();
+            line.setId(Integer.parseInt(jTextFieldId.getText()));
+            line.setName(jTextFieldName.getText());
+            
+            lineController.update(line);
+            MessageUtils.getInstance().showInfo("El registro fue modificado exitosamente");
+            clear();
+            fillTable();            
+        }catch (NumberFormatException ex) {
+            MessageUtils.getInstance().showError("El Id debe contener solo números");
+        } 
+        catch (Exception ex) {
+            MessageUtils.getInstance().showError(ex.getMessage());
+        }
+    }//GEN-LAST:event_jButtonUpdateActionPerformed
+
+    private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
+        int option = MessageUtils.getInstance().showConfirm("Está seguro de eliminar el registro?");
+        if(option == JOptionPane.YES_OPTION)
+        {
+            try {
+                lineController.delete(Integer.parseInt(jTextFieldId.getText()));
+                MessageUtils.getInstance().showInfo("Registro eliminado exitosamente");
+                clear();
+                fillTable();
+            } catch (Exception ex) {
+                MessageUtils.getInstance().showError(ex.getMessage());
+            }            
+        }
+    }//GEN-LAST:event_jButtonDeleteActionPerformed
+
+    private void jTableLinesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableLinesMouseClicked
+        int rowSelected = jTableLines.getSelectedRow();
+        if(rowSelected != -1)
+        {
+            jButtonUpdate.setEnabled(true);
+            jButtonDelete.setEnabled(true);
+            jButtonInsert.setEnabled(false);
+            
+            int idSelected = Integer.parseInt(jTableLines.getValueAt(rowSelected, 0).toString());
+            try {
+                //consultar por id
+                Line line = lineController.find(idSelected);
+                jTextFieldId.setText(String.valueOf(line.getId()));
+                jTextFieldName.setText(line.getName());
+            } catch (Exception ex) {
+                MessageUtils.getInstance().showError(ex.getMessage());
+            }
+        }
+    }//GEN-LAST:event_jTableLinesMouseClicked
+
+    public void clear()
+    {
+        jTextFieldId.setText("");
+        jTextFieldName.setText("");
+        jTableLines.clearSelection();
+        jButtonInsert.setEnabled(true);
+        jButtonUpdate.setEnabled(false);
+        jButtonDelete.setEnabled(false);
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -221,12 +293,14 @@ public class JFrameLine extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonClean;
     private javax.swing.JButton jButtonDelete;
-    private javax.swing.JButton jButtonModify;
-    private javax.swing.JButton jButtonRegister;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabelName;
+    private javax.swing.JButton jButtonInsert;
+    private javax.swing.JButton jButtonUpdate;
+    private javax.swing.JLabel jLabelId;
+    private javax.swing.JLabel jLabelStatus;
+    private javax.swing.JLabel jLabelTitle;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTableRegisters;
-    private javax.swing.JTextField jTextFieldNameLine;
+    private javax.swing.JTable jTableLines;
+    private javax.swing.JTextField jTextFieldId;
+    private javax.swing.JTextField jTextFieldName;
     // End of variables declaration//GEN-END:variables
 }

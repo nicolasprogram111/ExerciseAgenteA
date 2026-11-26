@@ -5,19 +5,17 @@
 package co.edu.sena.exerciseagentea.controller;
 
 import co.edu.sena.exerciseagentea.model.Shed;
+import java.util.List;
 
 /**
  *
  * @author Aprendiz
  */
   public interface IShedController {
- 
-    public void register(Shed shed) throws Exception;
-    public void modify(Shed shed) throws Exception;
-    public void delete(int numberShed) throws Exception;
-    public Shed find(int numberShed)throws Exception;
-    public java.util.List<Shed> findAll() throws Exception;
+    public void insert(Shed shed) throws Exception;
+    public void update(Shed shed) throws Exception;
+    public void delete(int number) throws Exception;
+    public Shed find(int number) throws Exception;
+    public List<Shed> findAll() throws Exception;
 }
-   
-
 

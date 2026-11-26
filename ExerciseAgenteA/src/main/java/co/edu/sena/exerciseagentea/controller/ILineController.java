@@ -5,16 +5,16 @@
 package co.edu.sena.exerciseagentea.controller;
 
 import co.edu.sena.exerciseagentea.model.Line;
+import java.util.List;
 
 /**
  *
  * @author nicol
  */
 public interface ILineController {
-    public void register(Line line) throws Exception;
-    public void modify(Line line) throws Exception;
-    public void delete(int codeLine) throws Exception;
-    public Line find(int codeLine)throws Exception;
-    public java.util.List<Line> findAll() throws Exception;
-    
+    public void insert(Line line) throws Exception;
+    public void update(Line line) throws Exception;
+    public void delete(int id) throws Exception;
+    public Line find(int id) throws Exception;
+    public List<Line> findAll() throws Exception;
 }

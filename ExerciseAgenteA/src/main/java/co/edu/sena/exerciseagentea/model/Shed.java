@@ -10,17 +10,17 @@ package co.edu.sena.exerciseagentea.model;
  * @author:Nicolas Medina Micolta Objetivo: modelo departamentos
  *
  */
+
 public class Shed {
-
     private int number;
-    private String state;
-
+    private String status;
+    
     public Shed() {
     }
 
-    public Shed(int number, String state) {
+    public Shed(int number, String status) {
         this.number = number;
-        this.state = state;
+        this.status = status;
     }
 
     public int getNumber() {
@@ -31,17 +31,17 @@ public class Shed {
         this.number = number;
     }
 
-    public String getState() {
-        return state;
+    public String getStatus() {
+        return status;
     }
 
-    public void setState(String state) {
-        this.state = state;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     @Override
     public String toString() {
-        return "Shed{" + "number=" + number + ", state=" + state + '}';
+        return number + " - " + status;
     }
 
     
