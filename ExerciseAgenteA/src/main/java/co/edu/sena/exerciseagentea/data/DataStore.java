@@ -19,9 +19,9 @@ public class DataStore {
     
     static{
         //carga inicial de datos
-        shedList.add(new Shed(1, "DISPONIBLE"));
-        shedList.add(new Shed(2, "DISPONIBLE"));
-        shedList.add(new Shed(3, "OCUPADO"));
+//        shedList.add(new Shed(1, "DISPONIBLE"));
+//        shedList.add(new Shed(2, "DISPONIBLE"));
+//        shedList.add(new Shed(3, "OCUPADO"));
         
         lineList.add(new Line(1, "Gallina Babcock"));
         lineList.add(new Line(2, "Gallina Jersey blanca gigante"));
