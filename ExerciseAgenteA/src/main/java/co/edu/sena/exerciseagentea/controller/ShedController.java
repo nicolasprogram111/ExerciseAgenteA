@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class ShedController implements IShedController{
    
- private DBShed dbShed = new DBShed();
+ private final DBShed dbShed = new DBShed();
     
     @Override
     public void insert(Shed shed) throws Exception {
